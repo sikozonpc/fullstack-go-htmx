@@ -18,13 +18,16 @@ So make sure you have the following tools installed on your machine.
 - [Migrate (for DB migrations)](https://github.com/golang-migrate/migrate/tree/v4.17.0/cmd/migrate)
 - [Air (for live reloading)](https://github.com/cosmtrek/air)
 
+Adittionally, it's recommended to install a syntax highlighting and templ LSP integration: 
+[the official Templ documentation](https://templ.guide/quick-start/installation#editor-support).
+
 ## Running the project
 
 Firstly make sure you have a MySQL database running on your machine or just swap for any storage you like under `/store`.
 
 Then, for the best development experience, run the project in 3 different processes by running:
 ```bash
-make air # for the go server live reloading
+air # for the go server live reloading
 make tailwind # for the tailwindcss live reloading
 make templ # for the templ files live generation and reloading
 ```
