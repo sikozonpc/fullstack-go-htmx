@@ -1,0 +1,26 @@
+package components
+
+import "github.com/sikozonpc/fullstackgo/types"
+import "fmt"
+
+templ CarTile(car *types.Car) {
+	<li
+		id={ fmt.Sprintf("car-%d", car.ID) }
+		class="flex flex-col w-1/4 bg-gray-200 rounded-md shadow-md p-4 m-4  border-gray-300 content-center justify-between text-center"
+	>
+		<span class="text-sm text-gray-900 mb-4">{ car.Brand }: { car.Model } { car.Make } from { car.Year }</span>
+		<img
+			src={ car.ImageURL }
+			alt={ car.ImageURL }
+			class="w-full h-32 object-cover rounded-md mb-4"
+		/>
+		<button
+			hx-delete={ fmt.Sprintf("/cars/%d", car.ID) }
+			hx-swap="delete"
+			hx-target={ fmt.Sprintf("#car-%d", car.ID) }
+			class="text-red-500 px-2"
+		>
+			Delete
+		</button>
+	</li>
+}

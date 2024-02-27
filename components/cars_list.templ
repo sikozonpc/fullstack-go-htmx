@@ -1,0 +1,11 @@
+package components
+
+import "github.com/sikozonpc/fullstackgo/types"
+
+templ CarsList(cars []types.Car) {
+	<ul id="car-list" class="flex my-4 flex-wrap m-auto w-2/3">
+		for _, car := range cars {
+			@CarTile(&car)
+		}
+	</ul>
+}

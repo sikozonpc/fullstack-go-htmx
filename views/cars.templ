@@ -1,0 +1,88 @@
+package views
+
+import "github.com/sikozonpc/fullstackgo/types"
+import "github.com/sikozonpc/fullstackgo/components"
+import "strconv"
+
+templ Cars(cars []types.Car, isAddingCar bool) {
+	@Page(true) {
+		<div class="flex flex-col justify-center items-center">
+			<h1 class="text-3xl font-bold text-center my-4">
+				Cars List
+			</h1>
+			<div class="flex w-2/3 my-4 mx-2 justify-around m-a">
+				if isAddingCar {
+					<form
+						hx-post="/cars"
+						hx-swap="afterbegin"
+						hx-target="#car-list"
+					>
+						<input
+							type="text"
+							name="brand"
+							placeholder="Brand"
+							autocomplete="off"
+						/>
+						<input
+							type="text"
+							name="make"
+							placeholder="Make"
+							autocomplete="off"
+						/>
+						<input
+							type="text"
+							name="model"
+							placeholder="Model"
+							autocomplete="off"
+						/>
+						<input
+							type="text"
+							name="year"
+							placeholder="Year"
+							autocomplete="off"
+						/>
+						<input
+							type="text"
+							name="imageURL"
+							placeholder="Image Link"
+							autocomplete="off"
+						/>
+						<button
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+						>
+							Add
+						</button>
+					</form>
+				} else {
+					<input
+						hx-get="/cars/search"
+						hx-trigger="keyup changed delay:500ms"
+						type="text"
+						hx-swap="outerHTML"
+						hx-target="#car-list"
+						hx-trigger="keyup changed delay:500ms"
+						name="search"
+						placeholder="Search for a car"
+						autocomplete="off"
+						class="m-a"
+					/>
+				}
+				<button
+					class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					hx-get="/cars"
+					hx-swap="outerHTML"
+					hx-target="body"
+					name="isAddingCar"
+					value={ templ.EscapeString(strconv.FormatBool(!isAddingCar)) }
+				>
+					if isAddingCar {
+						Cancel 
+					} else {
+						Add Car
+					}
+				</button>
+			</div>
+			@components.CarsList(cars)
+		</div>
+	}
+}
